@@ -4,11 +4,12 @@ import (
 	"crypto/sha256"
 	"errors"
 	"fmt"
-	"reflect"
 	"strings"
+	"reflect"
 
 	"github.com/alex-src/vault/github"
 	"github.com/alex-src/vault/vault"
+	"github.com/hashicorp/go-multierror"
 	"github.com/fatih/structs"
 )
 
