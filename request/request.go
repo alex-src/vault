@@ -10,9 +10,10 @@ import (
 
 	"github.com/alex-src/vault/vault"
 	"github.com/fatih/structs"
+	"github.com/hashicorp/go-uuid"
 	"github.com/hashicorp/vault/helper/xor"
 	"github.com/mitchellh/hashstructure"
-	"github.com/mitchellh/mapstructure"
+  "github.com/mitchellh/mapstructure"
 )
 
 // operations on the same request should not interweave,
