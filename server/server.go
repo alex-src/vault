@@ -14,10 +14,11 @@ import (
 	"github.com/alex-src/vault/config"
 	"github.com/alex-src/vault/handlers"
 	"github.com/alex-src/vault/vault"
+	"github.com/GeertJohan/go.rice"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 
-	"golang.org/x/crypto/acme/autocert"
+  "golang.org/x/crypto/acme/autocert"
 )
 
 var (
