@@ -1,8 +1,8 @@
 {
-  "name": "goldfish",
-  "version": "0.9.1-dev",
+  "name": "vault-client",
+  "version": "0.0.1",
   "description": "A HashiCorp Vault UI",
-  "repository": "caiyeon/goldfish",
+  "repository": "alex-src/vault",
   "homepage": "",
   "license": "MPL-2.0",
   "author": {
