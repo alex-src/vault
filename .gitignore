@@ -1,0 +1,9 @@
+public
+public.*
+**/.DS_STORE
+**/.vagrant
+build/goldfish-linux-amd64
+build/goldfish-windows-amd64.exe
+build/goldfish-osx-amd64
+rice-box.go
+.idea
