@@ -9,6 +9,7 @@ rice embed-go
 
 # compile goldfish binary
 #go get github.com/caiyeon/goldfish
+go get github.com/hashicorp/vault/helper/mlock
 go get github.com/alex-src/vault
 mkdir -p build
 env GOOS=linux GOARCH=amd64 go build -o build/vault-linux-amd64 -v github.com/alex-src/vault &

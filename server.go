@@ -38,7 +38,7 @@ func init() {
 
 	// cmd line args
 	flag.BoolVar(&devMode, "dev", false, "Set to true to save time in development. DO NOT SET TO TRUE IN PRODUCTION!!")
-	flag.BoolVar(&printVersion, "version", false, "Display goldfish's version and exit")
+	flag.BoolVar(&printVersion, "version", false, "Display vault's version and exit")
 	flag.StringVar(&wrappingToken, "token", "", "Token generated from approle (must be wrapped!)")
 	flag.StringVar(&nomadTokenFile, "nomad-token-file", "", "If you are using Nomad, this file should contain a secret_id")
 	flag.StringVar(&cfgPath, "config", "", "The path of the deployment config HCL file")
@@ -63,7 +63,7 @@ func main() {
 		cfg, err = config.LoadConfigFile(cfgPath)
 	}
 	if err != nil {
-		log.Fatalf("[ERROR]: Launching goldfish: %s", err.Error())
+		log.Fatalf("[ERROR]: Launching vault: %s", err.Error())
 	}
 
 	if !cfg.DisableMlock {
@@ -72,13 +72,14 @@ func main() {
 		}
 	}
 
-	// configure goldfish server settings and token
+	// configure vault server settings and token
 	vault.SetConfig(cfg.Vault)
+  log.Println("[INFO ]: Vault config:\n" + strings.Join(cfg.Vault, "\n"))
 
 	// if bootstrapping options are provided, do so immediately
 	if wrappingToken != "" {
 		if err := vault.Bootstrap(wrappingToken); err != nil {
-			log.Fatalf("[ERROR]: Bootstrapping goldfish %s", err.Error())
+			log.Fatalf("[ERROR]: Bootstrapping vault %s", err.Error())
 		}
 	} else if nomadTokenFile != "" {
 		raw, err := ioutil.ReadFile(nomadTokenFile)
@@ -86,7 +87,7 @@ func main() {
 			log.Fatalf("[ERROR]: Could not read token file: %s", err.Error())
 		}
 		if err := vault.BootstrapRaw(string(raw)); err != nil {
-			log.Fatalf("[ERROR]: Bootstrapping goldfish: %s", err.Error())
+			log.Fatalf("[ERROR]: Bootstrapping vault: %s", err.Error())
 		}
 	}
 
@@ -104,7 +105,7 @@ func main() {
 	shutdown := make(chan os.Signal, 1)
 	signal.Notify(shutdown, os.Interrupt, syscall.SIGTERM)
 	<-shutdown
-	log.Println("\n\n==> Goldfish shutdown triggered")
+	log.Println("\n\n==> Vault shutdown triggered")
 
 	// shut down vault dev server, if it was initialized
 	if devVaultCh != nil {
@@ -119,7 +120,7 @@ func main() {
 	os.Exit(0)
 }
 
-const versionString = "Goldfish version: v0.9.1-dev"
+const versionString = "Vault version: v0.0.1"
 
 const devInitString = `
 
@@ -129,7 +130,7 @@ Your unseal token and root token can be found above
 `
 
 const initString = `
-Goldfish successfully bootstrapped to vault
+Vault successfully bootstrapped
 
   .
   ...             ...
@@ -152,16 +153,16 @@ Goldfish successfully bootstrapped to vault
 const mlockError = `
 Failed to use mlock to prevent swap usage: %s
 
-Goldfish uses mlock similar to Vault. See here for details:
+See here for details:
 https://www.vaultproject.io/docs/configuration/index.html#disable_mlock
 
-To enable mlock without launching goldfish as root:
-sudo setcap cap_ipc_lock=+ep $(readlink -f $(which goldfish))
+To enable mlock without launching vault as root:
+sudo setcap cap_ipc_lock=+ep $(readlink -f $(which vault))
 
 To disable mlock entirely, set disable_mlock to "1" in config file
 `
 
-const helpMessage = `Usage: goldfish [options]
+const helpMessage = `Usage: vault [options]
 See https://github.com/alex-src/vault/wiki for details
 
 Required Arguments:
@@ -174,7 +175,7 @@ Optional Arguments:
 
   -token=<uuid>           A wrapping token which contains a secret_id
                           Can be provided after launch, on Login page
-                          Generate with 'vault write -f -wrap-ttl=5m auth/approle/role/goldfish/secret-id'
+                          Generate with 'vault write -f -wrap-ttl=5m auth/approle/role/alex2006hw/secret-id'
 
   -nomad-token-file       A path to a file containing a raw token.
                           Not recommended unless approle is unavailable,
@@ -182,6 +183,6 @@ Optional Arguments:
 
   -version                Print the version and exit
 
-  -dev                    Launch goldfish in dev mode
+  -dev                    Launch vault in dev mode
                           A localhost dev vault instance will be launched
 `
