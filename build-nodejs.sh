@@ -4,6 +4,6 @@
 # install & update npm packages
 rm -rf public pkg
 (cd frontend && npm install && npm run build)
-mv pkg/web_ui public
+mv pkg/web_ui public && rmdir pkg
 # report build
 echo 'Successfully built ' $(git describe --always --tags)
