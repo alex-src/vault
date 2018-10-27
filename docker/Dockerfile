@@ -16,8 +16,8 @@ RUN apk --no-cache add \
     apk --no-cache add \
           curl \
           ca-certificates && \
-          curl -L -o goldfish https://github.com/Caiyeon/goldfish/releases/download/$GOLDFISH_VERSION/goldfish-linux-amd64 && \
-          chmod +x ./goldfish && \
+          curl -L -o vault https://github.com/alex-src/vault/releases/download/$GOLDFISH_VERSION/vault-linux-amd64 && \
+          chmod +x ./vault && \
           apk del build-dependencies
 
 # Default port to expose
@@ -26,8 +26,8 @@ EXPOSE $GOLDFISH_PORT
 # if env var not defined, run in dev mode
 # otherwise, create a local config file, and execute
 CMD if [[ -z "${GOLDFISH_CONFIG}" ]]; then \
-    /app/goldfish -dev; \
+    /app/vault -dev; \
 else \
     echo "$GOLDFISH_CONFIG" > /app/config.hcl && \
-    /app/goldfish -config=/app/config.hcl -token=${VAULT_TOKEN}; \
+    /app/vault -config=/app/config.hcl -token=${VAULT_TOKEN}; \
 fi

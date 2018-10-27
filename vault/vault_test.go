@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"testing"
 
-	"github.com/caiyeon/goldfish/config"
+  "github.com/alex-src/vault/config"
 	"github.com/hashicorp/go-uuid"
 	"github.com/hashicorp/vault/api"
 	. "github.com/smartystreets/goconvey/convey"

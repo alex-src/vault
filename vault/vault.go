@@ -6,7 +6,7 @@ import (
 	"time"
 	"sync"
 
-	"github.com/caiyeon/goldfish/config"
+  "github.com/alex-src/vault/config"
 	"github.com/hashicorp/vault/api"
 )
 
