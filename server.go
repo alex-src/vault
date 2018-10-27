@@ -93,8 +93,12 @@ func main() {
 	}
 
 	// start listener
+  Rice := rice.Config{
+        LocateOrder: []rice.LocateMethod{rice.LocateFS, rice.LocateEmbedded, rice.LocateAppended},
+       }
+
 	if !devMode {
-		staticAssets, err = rice.FindBox("public")
+		staticAssets, err = Rice.FindBox("public")
 		if err != nil {
 			log.Fatalf("[ERROR]: Static assets not found. Build them with npm first. \n%s", err.Error())
 		}

@@ -1,2 +1,3 @@
-./build.sh
-go run server.go -dev
+[[ ! -d frontend ]] && (git clone https://github.com/djenriquez/vault-ui.git frontend)
+./bin/build.sh
+#go run server.go -dev
