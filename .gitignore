@@ -4,6 +4,7 @@ pkg/
 frontend/
 **/.DS_STORE
 **/.vagrant
+node_modules/
 build/vault-linux-amd64
 build/vault-windows-amd64.exe
 build/vault-osx-amd64

@@ -1,0 +1,27 @@
+{
+  "name": "vault",
+  "version": "1.0.0",
+  "description": "vault",
+  "main": "server.js",
+  "scripts": {
+    "start": "npm-run-all -l -p start:nodejs start:golang",
+    "start:golang": "go run server.go -dev",
+    "start:nodejs": "cd public && http-server -p 8080",
+    "build": "./runme"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex-src/vault.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alex-src/vault/issues"
+  },
+  "homepage": "https://github.com/alex-src/vault#readme",
+  "devDependencies": {
+    "http-server": "0.11.1",
+    "npm-run-all": "4.1.3"
+  }
+}
