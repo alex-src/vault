@@ -6,19 +6,26 @@
 
 ### Usage
 
+- install  source
+```
+  go get github.com/alex-src/vault
+```
+
 - build everything
 ```
-  ./build.sh
+  cd $GOPATH/src/github.com/alex-src/vault
+  ./runme
 ```
 
 - build frontend
 ```
-  ./build-nodejs.sh
+  cd $GOPATH/src/github.com/alex-src/vault
+  ./bin/build-nodejs.sh
 ```
 
 - build backend
 ```
-  ./build-golang.sh
+  ./bin/build-golang.sh
 ```
 
 - binaries in build directory
