@@ -2,8 +2,8 @@
 # You will also need cross-env (sudo npm install -g cross-env)
 
 # install & update npm packages
-rm -rf public
-cd frontend && npm install && npm run build
-
+rm -rf public pkg
+(cd frontend && npm install && npm run build)
+mv pkg/web_ui public
 # report build
 echo 'Successfully built ' $(git describe --always --tags)

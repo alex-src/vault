@@ -1,5 +1,6 @@
 public
 public.*
+pkg/
 **/.DS_STORE
 **/.vagrant
 build/goldfish-linux-amd64
