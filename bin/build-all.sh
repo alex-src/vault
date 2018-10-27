@@ -42,9 +42,9 @@ esac
 
 # Delete the old dir
 echo "==> Removing old directory..."
-rm -f build/*
-rm -rf pkg/*
-mkdir -p build/
+rm -rf build
+rm -rf pkg
+mkdir -p build pkg
 
 # Build!
 echo "==> Building..."
@@ -64,8 +64,7 @@ IFS=$OLDIFS
 # Copy our OS/Arch to the bin/ directory
 DEV_PLATFORM=${DEV_PLATFORM:-"./pkg/$(go env GOOS)_$(go env GOARCH)"}
 for F in $(find ${DEV_PLATFORM} -mindepth 1 -maxdepth 1 -type f); do
-    cp ${F} build/
-    cp ${F} ${MAIN_GOPATH}/build/
+    cp -Ra ${F} build/
 done
 
 if [ "${VAULT_DEV_BUILD}x" = "x" ]; then
@@ -82,6 +81,7 @@ if [ "${VAULT_DEV_BUILD}x" = "x" ]; then
 fi
 
 # Done!
+cp -Ra pkg/*zip build/
 echo
 echo "==> Results:"
 ls -hl build/

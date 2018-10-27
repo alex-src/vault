@@ -2,10 +2,9 @@ public/
 public.*
 pkg/
 frontend/
+build/
+node_modules/
 **/.DS_STORE
 **/.vagrant
-build/vault-linux-amd64
-build/vault-windows-amd64.exe
-build/vault-osx-amd64
 rice-box.go
 .idea
