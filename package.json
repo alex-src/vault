@@ -1,6 +1,6 @@
 {
   "name": "vault",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "description": "vault",
   "main": "server.js",
   "scripts": {
