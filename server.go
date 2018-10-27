@@ -14,8 +14,8 @@ import (
   "github.com/alex-src/vault/config"
   "github.com/alex-src/vault/server"
   "github.com/alex-src/vault/vault"
-	"github.com/GeertJohan/go.rice"
-	"github.com/hashicorp/vault/helper/mlock"
+  "github.com/GeertJohan/go.rice"
+  "github.com/hashicorp/vault/helper/mlock"
 )
 
 var (
