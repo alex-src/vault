@@ -7,6 +7,6 @@ ROOT_DIR=$(pwd)
 #(cd ${ROOT_DIR}/frontend && npm install && npm run build)
 #(cd ${ROOT_DIR} && mv pkg/web_ui public && rmdir pkg)
 (cd ${ROOT_DIR}/frontend && npm install && npm run build-web)
-(cd ${ROOT_DIR} && rm -rf ${ROOT_DIR}/public && cp -Ra ${ROOT_DIR}/frontend/dist ${ROOT_DIR}/public && cp ${ROOT_DIR}/frontend/index.web.html ${ROOT_DIR}/public/index.html)
+(cd ${ROOT_DIR} && rm -rf ${ROOT_DIR}/public && mkdir -p ${ROOT_DIR}/public && cp -Ra ${ROOT_DIR}/frontend/dist ${ROOT_DIR}/public/ && cp ${ROOT_DIR}/frontend/index.web.html ${ROOT_DIR}/public/index.html)
 # report build
 echo 'Successfully built ' $(git describe --always --tags)
