@@ -6,6 +6,19 @@
 
 ### Usage
 
+- build everything
 ```
-  ./build
+  ./build.sh
 ```
+
+- build frontend
+```
+  ./build-nodejs.sh
+```
+
+- build backend
+```
+  ./build-golang.sh
+```
+
+- binaries in build directory
