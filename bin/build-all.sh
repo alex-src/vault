@@ -48,6 +48,7 @@ mkdir -p build pkg
 
 # Build!
 echo "==> Building..."
+go get github.com/mitchellh/gox
 gox \
     -osarch="${XC_OSARCH}" \
     -gcflags "${GCFLAGS}" \
