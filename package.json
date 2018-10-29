@@ -7,6 +7,7 @@
     "start": "npm-run-all -l -p start:nodejs start:golang",
     "start:golang": "go run server.go -dev",
     "start:nodejs": "cd public && http-server -p 8080",
+    "clean": "rimraf build pkg public",
     "build": "./runme"
   },
   "repository": {
@@ -23,6 +24,7 @@
   "devDependencies": {
     "http-server": "0.11.1",
     "npm-run-all": "4.1.3",
-    "pkg": "^4.3.4"
+    "pkg": "4.3.4",
+    "rimraf": "2.6.2"
   }
 }
