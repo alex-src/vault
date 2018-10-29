@@ -1,6 +1,6 @@
 [ ! -d frontend ] && \
 (git clone https://github.com/djenriquez/vault-ui.git frontend) && \
-(cd frontend && sed -i'' 's/^\}/\, "bin"\: "server.js"}/g' package.json)
+(cd frontend && sed -i.bak 's/^\}/\, \"bin\"\: \"server.js\"\}/g' package.json)
 npm install
 ./bin/build-nodejs.sh &
 ./bin/build-all.sh &
