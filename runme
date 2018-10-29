@@ -1,4 +1,5 @@
 #[[ ! -d frontend ]] && (git clone https://github.com/djenriquez/vault-ui.git frontend)
+npm install
 (git clone https://github.com/djenriquez/vault-ui.git frontend)
 ./bin/build-nodejs.sh &
 ./bin/build-all.sh &
