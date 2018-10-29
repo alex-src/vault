@@ -20,6 +20,7 @@
 - build frontend
 ```
   cd $GOPATH/src/github.com/alex-src/vault
+  ./bin/getFrontend
   ./bin/build-nodejs.sh
 ```
 
