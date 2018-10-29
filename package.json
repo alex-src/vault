@@ -22,6 +22,7 @@
   "homepage": "https://github.com/alex-src/vault#readme",
   "devDependencies": {
     "http-server": "0.11.1",
-    "npm-run-all": "4.1.3"
+    "npm-run-all": "4.1.3",
+    "pkg": "^4.3.4"
   }
 }

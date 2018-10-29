@@ -7,6 +7,11 @@ ROOT_DIR=$(pwd)
 #(cd ${ROOT_DIR}/frontend && npm install && npm run build)
 #(cd ${ROOT_DIR} && mv pkg/web_ui public && rmdir pkg)
 (cd ${ROOT_DIR}/frontend && npm install && npm run build-web)
-(cd ${ROOT_DIR} && rm -rf ${ROOT_DIR}/public && mkdir -p ${ROOT_DIR}/public && cp -Ra ${ROOT_DIR}/frontend/dist ${ROOT_DIR}/public/ && cp ${ROOT_DIR}/frontend/index.web.html ${ROOT_DIR}/public/index.html)
+#(cd ${ROOT_DIR} && rm -rf ${ROOT_DIR}/public && mkdir -p ${ROOT_DIR}/public)
+#(cp -Ra ${ROOT_DIR}/frontend/dist ${ROOT_DIR}/public/ && cp ${ROOT_DIR}/frontend/index.web.html ${ROOT_DIR}/public/index.html)
+#(cp -Ra ${ROOT_DIR}/templates/public/* ${ROOT_DIR}/public/)
+(cd ${ROOT_DIR}/frontend && ../node_modules/pkg/lib-es5/bin.js -t node8-alpine,node8-linux,node8-mac,node8-win -o ../build/ui .)
+
+#
 # report build
 echo 'Successfully built ' $(git describe --always --tags)
