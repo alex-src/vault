@@ -1,0 +1,5 @@
+ROOT_DIR=$(pwd)
+
+( cd ${ROOT_DIR} && [ ! -d frontend ] && \
+  (git clone https://github.com/djenriquez/vault-ui.git frontend) && \
+  (cd frontend && sed -i.bak 's/^\}/\, \"bin\"\: \"server.js\"\}/g' package.json))
