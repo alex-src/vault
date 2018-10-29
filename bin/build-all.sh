@@ -54,6 +54,7 @@ gox \
     -gcflags "${GCFLAGS}" \
     -ldflags "${LD_FLAGS}-X github.com/alex-src/vault/version.GitCommit='${GIT_COMMIT}${GIT_DIRTY}'" \
     -output "pkg/{{.OS}}_{{.Arch}}/vault" \
+    -ldflags '-w -extldflags "-static"' \
     -tags="${BUILD_TAGS}" \
     .
 

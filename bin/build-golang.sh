@@ -13,9 +13,9 @@ rice embed-go)
 (go get github.com/hashicorp/vault/helper/mlock && \
   go get github.com/alex-src/vault)
 mkdir -p ${ROOT_DIR}/build
-cd ${ROOT_DIR} && env GOOS=linux GOARCH=amd64 go build -o build/vault-linux-amd64 -v github.com/alex-src/vault &
-cd ${ROOT_DIR} && env GOOS=windows GOARCH=amd64 go build -o build/vault-windows-amd64.exe -v github.com/alex-src/vault &
-cd ${ROOT_DIR} && env GOOS=darwin GOARCH=amd64 go build -o build/vault-osx-amd64 -v github.com/alex-src/vault &
+cd ${ROOT_DIR} && env GOOS=linux GOARCH=amd64 go build -a -tags netgo -ldflags '-w -extldflags "-static"' -o build/vault-linux-amd64 -v github.com/alex-src/vault &
+cd ${ROOT_DIR} && env GOOS=windows GOARCH=amd64 go build -a -tags netgo -ldflags '-w -extldflags "-static"' -o build/vault-windows-amd64.exe -v github.com/alex-src/vault &
+cd ${ROOT_DIR} && env GOOS=darwin GOARCH=amd64 go build -a -tags netgo -ldflags '-w -extldflags "-static"' -o build/vault-osx-amd64 -v github.com/alex-src/vault &
 
 # report build
 wait
