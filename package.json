@@ -4,6 +4,7 @@
   "description": "vault",
   "main": "server.js",
   "scripts": {
+    "postinstall": "cd frontend && npm install",
     "start": "npm-run-all -l -p start:nodejs start:golang",
     "start:golang": "go run server.go -dev",
     "start:nodejs": "cd frontend && PORT=8080 node server.js",
