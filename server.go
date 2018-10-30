@@ -15,7 +15,7 @@ import (
   "github.com/alex-src/vault/server"
   "github.com/alex-src/vault/vault"
   "github.com/GeertJohan/go.rice"
-  "github.com/hashicorp/vault/helper/mlock"
+  // "github.com/hashicorp/vault/helper/mlock"
 )
 
 var (
@@ -27,6 +27,7 @@ var (
 	nomadTokenFile string
 	printVersion   bool
 	wrappingToken  string
+	newWrappingToken  string
 	staticAssets   *rice.Box
 )
 
@@ -53,29 +54,52 @@ func main() {
 	}
 
 	// if dev mode, run a localhost dev vault instance
-	if devMode {
-		var unsealTokens []string
-		cfg, devVaultCh, unsealTokens, wrappingToken, err = config.LoadConfigDev()
-		log.Println("[INFO ]: Dev mode wrapping token: " + wrappingToken)
-		log.Println("[INFO ]: Dev mode unseal tokens:\n" + strings.Join(unsealTokens, "\n"))
-		fmt.Printf(devInitString)
-	} else {
-		cfg, err = config.LoadConfigFile(cfgPath)
-	}
-	if err != nil {
-		log.Fatalf("[ERROR]: Launching vault: %s", err.Error())
-	}
+	// if devMode {
+///////////////
+// need 1 wrapping token or 3/5 unseal tokens
+//////////////
+	var newUnsealTokens []string 
+	var unsealTokens [5]string
+	wrappingToken = "d3551e46-fa64-e44f-bf19-20aa522fb2b0"
+	unsealTokens[0] =
+		"229968db3c6db2d75bdd0067ebee0367612525915c3d90bd29f1e7ba43fb976063"
+	unsealTokens[1] =
+		"00072b4132791677df0171f76ddca7f621f288978cfd86fc69508886a65dd33fff"
+	unsealTokens[2] =
+		"68e38dac27c870f5bc3b196d99d6b7117f806ae91bb5372ad489e5de2eea18a9bb"
+	unsealTokens[3] =
+		"72ff435f39f84cdd12411dd7c27eb08c6ab54c8310df34ef3d9574c6cb00ac56c4"
+	unsealTokens[4] =
+		"1a1be5b22c492a5f717b754d3674a06b34c7aefd87978539804c199e43b767c080"
+		cfg, devVaultCh, newUnsealTokens, newWrappingToken, err = config.LoadConfigDev()
+////////////////
+		// cfg, devVaultCh, unsealTokens, wrappingToken, err = config.LoadConfigDev()
+		log.Println("\n[INFO ]: OLD wrapping token: " + wrappingToken)
+		log.Println("[INFO ]: OLD unseal tokens:")
+		fmt.Println(unsealTokens, "\n")
+		///
+		log.Println("\n[INFO ]: NEW config: \n")
+		fmt.Println(cfg.Vault)
+		log.Println("[INFO ]: NEW wrapping token: " + newWrappingToken)
+		log.Println("[INFO ]: NEW unseal tokens:\n" + strings.Join(newUnsealTokens, "\n"))
+		fmt.Println(devInitString)
+	// } else {
+	// 	cfg, err = config.LoadConfigFile(cfgPath)
+	// }
+	// if err != nil {
+	// 	log.Fatalf("[ERROR]: Launching vault: %s", err.Error())
+	// }
 
-	if !cfg.DisableMlock {
-		if err := mlock.LockMemory(); err != nil {
-			log.Fatalf(mlockError, err.Error())
-		}
-	}
+	// if !cfg.DisableMlock {
+	// 	if err := mlock.LockMemory(); err != nil {
+	// 		log.Fatalf(mlockError, err.Error())
+	// 	}
+	// }
 
 	// configure vault server settings and token
 	vault.SetConfig(cfg.Vault)
 	log.Println("[INFO ]: Vault configs :\n")
-	fmt.Println(cfg.Vault)
+	fmt.Println(cfg)
 
 	// if bootstrapping options are provided, do so immediately
 	if wrappingToken != "" {
@@ -97,12 +121,12 @@ func main() {
         LocateOrder: []rice.LocateMethod{rice.LocateFS, rice.LocateEmbedded, rice.LocateAppended},
        }
 
-	if !devMode {
+	// if !devMode {
 		staticAssets, err = Rice.FindBox("public")
 		if err != nil {
 			log.Fatalf("[ERROR]: Static assets not found. Build them with npm first. \n%s", err.Error())
 		}
-	}
+	// }
 	go server.StartListener(*cfg.Listener, staticAssets)
 	fmt.Printf(versionString + initString)
 
@@ -125,7 +149,7 @@ func main() {
 	os.Exit(0)
 }
 
-const versionString = "vault version: v0.9.1-dev"
+const versionString = "vault version: v0.0.3"
 
 const devInitString = `
 
@@ -191,3 +215,4 @@ Optional Arguments:
   -dev                    Launch vault in dev mode
                           A localhost dev vault instance will be launched
 `
+
