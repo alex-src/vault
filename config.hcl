@@ -39,7 +39,9 @@ vault {
 
 	# [Optional] [Default: 0] [Allowed values: 0, 1]
 	# Set this to 1 to skip verifying the certificate of vault (e.g. self-signed certs)
-	tls_skip_verify = 0
+	tls_skip_verify = 1
+
+	file = "vault-data"
 
 	# [Required] [Default: "secret/alex2006hw"]
 	# This should be a generic secret endpoint where runtime settings are stored
@@ -68,7 +70,5 @@ vault {
 # Set to 1 to disable mlock. Implementation is similar to vault - see vault docs for details
 # This option will be ignored on unsupported platforms (e.g Windows)
 disable_mlock = 1
-storage "file" {
-    path = "./vault-data"
-}
+
 
