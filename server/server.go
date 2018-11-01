@@ -75,7 +75,7 @@ func StartListener(listener config.ListenerConfig, assets *rice.Box) {
 
 		// if cert file and key file are not provided, try using let's encrypt
 		if listener.Lets_encrypt_address != "" {
-			e.AutoTLSManager.Cache = autocert.DirCache("/var/www/.cache")
+			e.AutoTLSManager.Cache = autocert.DirCache(".wwwcache")
 			e.AutoTLSManager.HostPolicy = autocert.HostWhitelist(listener.Lets_encrypt_address)
 			e.Use(middleware.HTTPSRedirectWithConfig(middleware.RedirectConfig{
 				Code: 301,

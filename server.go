@@ -9,13 +9,13 @@ import (
 	"strings"
 	"syscall"
 	"time"
-	"io/ioutil"
+	// "io/ioutil"
 
   "github.com/alex-src/vault/config"
   "github.com/alex-src/vault/server"
   "github.com/alex-src/vault/vault"
   "github.com/GeertJohan/go.rice"
-  // "github.com/hashicorp/vault/helper/mlock"
+  // "github.com/alex-src/vault/helper/mlock"
 )
 
 var (
@@ -79,10 +79,10 @@ func main() {
 		fmt.Println(unsealTokens, "\n")
 		///
 		log.Println("\n[INFO ]: NEW config: \n")
-		fmt.Println(cfg.Vault)
+		fmt.Println(cfg.Vault, "\n")
 		log.Println("[INFO ]: NEW wrapping token: " + newWrappingToken)
 		log.Println("[INFO ]: NEW unseal tokens:\n" + strings.Join(newUnsealTokens, "\n"))
-		fmt.Println(devInitString)
+		fmt.Println(devInitString, "\n")
 	// } else {
 	// 	cfg, err = config.LoadConfigFile(cfgPath)
 	// }
@@ -99,22 +99,26 @@ func main() {
 	// configure vault server settings and token
 	vault.SetConfig(cfg.Vault)
 	log.Println("[INFO ]: Vault configs :\n")
-	fmt.Println(cfg)
+	fmt.Println(cfg.Vault, "\n")
 
 	// if bootstrapping options are provided, do so immediately
 	if wrappingToken != "" {
 		if err := vault.Bootstrap(wrappingToken); err != nil {
 			log.Fatalf("[ERROR]: Bootstrapping vault %s", err.Error())
-		}
-	} else if nomadTokenFile != "" {
-		raw, err := ioutil.ReadFile(nomadTokenFile)
-		if err != nil {
-			log.Fatalf("[ERROR]: Could not read token file: %s", err.Error())
-		}
-		if err := vault.BootstrapRaw(string(raw)); err != nil {
-			log.Fatalf("[ERROR]: Bootstrapping vault: %s", err.Error())
+		} else {
+			log.Println("[INFO ]: Bootstrapping vault Success\n")
 		}
 	}
+	
+	// else if nomadTokenFile != "" {
+	// 	raw, err := ioutil.ReadFile(nomadTokenFile)
+	// 	if err != nil {
+	// 		log.Fatalf("[ERROR]: Could not read token file: %s", err.Error())
+	// 	}
+	// 	if err := vault.BootstrapRaw(string(raw)); err != nil {
+	// 		log.Fatalf("[ERROR]: Bootstrapping vault: %s", err.Error())
+	// 	}
+	// }
 
 	// start listener
   Rice := rice.Config{
@@ -128,7 +132,7 @@ func main() {
 		}
 	// }
 	go server.StartListener(*cfg.Listener, staticAssets)
-	fmt.Printf(versionString + initString)
+	fmt.Printf(versionString + initString, "\n")
 
 	// wait for shutdown signal, and cleanup after
 	shutdown := make(chan os.Signal, 1)
@@ -154,7 +158,7 @@ const versionString = "vault version: v0.0.3"
 const devInitString = `
 
 ---------------------------------------------------
-Starting local vault dev instance...
+Starting local vault instance...
 Your unseal token and root token can be found above
 `
 
