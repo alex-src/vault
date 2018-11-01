@@ -102,8 +102,10 @@ func main() {
 	fmt.Println(cfg.Vault, "\n")
 
 	// if bootstrapping options are provided, do so immediately
-	if wrappingToken != "" {
-		if err := vault.Bootstrap(wrappingToken); err != nil {
+	// if wrappingToken != "" {
+	// 	if err := vault.Bootstrap(wrappingToken); err != nil {
+	if newWrappingToken != "" {
+		if err := vault.Bootstrap(newWrappingToken); err != nil {
 			log.Fatalf("[ERROR]: Bootstrapping vault %s", err.Error())
 		} else {
 			log.Println("[INFO ]: Bootstrapping vault Success\n")

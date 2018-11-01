@@ -6,10 +6,11 @@ ROOT_DIR=$(pwd)
 #(cd ${ROOT_DIR} && rm -rf public pkg)
 #(cd ${ROOT_DIR}/frontend && npm install && npm run build)
 #(cd ${ROOT_DIR} && mv pkg/web_ui public && rmdir pkg)
-(cd ${ROOT_DIR} && rm -rf ${ROOT_DIR}/build/frontend && mkdir -p ${ROOT_DIR}/build/frontend)
+(cd ${ROOT_DIR} && rm -rf ${ROOT_DIR}/build/frontend public && mkdir -p ${ROOT_DIR}/build/frontend)
 (cd ${ROOT_DIR}/frontend && npm install && npm run build-web)
 (cd ${ROOT_DIR}/frontend && ${ROOT_DIR}/node_modules/pkg/lib-es5/bin.js -t node8-alpine,node8-linux,node8-mac,node8-win -o ${ROOT_DIR}/build/frontend/ui .)
 (cp -Ra ${ROOT_DIR}/frontend/dist ${ROOT_DIR}/build/frontend/ && cp ${ROOT_DIR}/frontend/index.web.html ${ROOT_DIR}/build/frontend/)
+(cd -Ra ${ROOT_DIR}/build/frontend ${ROOT_DIR}/public)
 
 #
 # report build
